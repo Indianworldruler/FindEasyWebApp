@@ -1,0 +1,62 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Nearby Restaurants</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Added Font Awesome for better icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="light-mode">
+    <div class="container">
+        <h2><i class="fas fa-utensils"></i> Find Nearby Restaurants</h2>
+
+        <!-- Dark Mode Toggle -->
+        <button id="toggleMode"><i class="fas fa-moon"></i> Dark Mode</button>
+
+        <!-- Step 1: Get User Location -->
+        <div id="step1">
+            <p>To find restaurants near you, we need your location.</p>
+            <button onclick="getLocation()"><i class="fas fa-map-marker-alt"></i> Allow Location Access</button>
+        </div>
+
+        <!-- Step 2: Enter Number of Persons -->
+        <div id="step2" style="display: none;">
+            <h3><i class="fas fa-users"></i> How many people are dining?</h3>
+            <input type="number" id="numPersons" min="1" max="10" value="1">
+            <button onclick="addPersons()">Next <i class="fas fa-arrow-right"></i></button>
+        </div>
+
+        <!-- Step 3: Enter Person Details -->
+        <div id="step3" style="display: none;">
+            <h3><i class="fas fa-clipboard-list"></i> Enter Preferences</h3>
+            <p>Tell us about each person's hunger level and food preferences</p>
+            <div id="personsContainer"></div>
+            <button onclick="showPriceSelection()">Continue <i class="fas fa-arrow-right"></i></button>
+        </div>
+
+        <!-- Step 4: Price Selection -->
+        <div id="step4" style="display: none;">
+            <h3><i class="fas fa-rupee-sign"></i> Budget Per Group</h3>
+            <label>Select your budget: <span id="priceValue">500</span> ₹</label>
+            <input type="range" id="priceRange" min="100" max="2000" step="100" value="500" oninput="updatePrice()">
+            <button id="findRestaurantsBtn" onclick="findRestaurants()"><i class="fas fa-search"></i> Find Restaurants</button>
+        </div>
+
+        <!-- Step 5: Loading Indicator -->
+        <p class="loading" style="display: none;"><i class="fas fa-spinner fa-spin"></i> Searching for restaurants near you...</p>
+
+        <!-- Step 6: Restaurant List -->
+        <div id="restaurantsList" style="display: none;"></div>
+
+        <!-- Step 7: Google Map -->
+        <div id="mapContainer" style="display: none;">
+            <h3><i class="fas fa-map"></i> Restaurant Location</h3>
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
