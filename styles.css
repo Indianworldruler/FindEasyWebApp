@@ -1,0 +1,869 @@
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Background Patterns */
+body {
+    text-align: center;
+    padding: 20px;
+    transition: background 0.3s, color 0.3s;
+    background-attachment: fixed;
+}
+
+body.light-mode {
+    background: #f5f5f5 url('/api/placeholder/100/100') repeat;
+    background-blend-mode: overlay;
+    color: #222;
+}
+
+body.dark-mode {
+    background: #121212 url('/api/placeholder/100/100') repeat;
+    background-blend-mode: multiply;
+    color: #fff;
+}
+
+/* Container */
+.container {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    border-radius: 15px;
+    background: #ffffff;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 150px;
+    background: url('/api/placeholder/150/150') no-repeat;
+    background-size: contain;
+    opacity: 0.1;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.dark-mode .container {
+    background: #1e1e1e;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .container::before {
+    opacity: 0.05;
+}
+
+h2 {
+    margin-bottom: 20px;
+    font-size: 26px;
+    color: #ff7e5f;
+    position: relative;
+    display: inline-block;
+}
+
+h2::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(to right, #ff7e5f, #feb47b);
+    border-radius: 3px;
+}
+
+.dark-mode h2 {
+    color: #ff9966;
+}
+
+.dark-mode h2::after {
+    background: linear-gradient(to right, #ff9966, #ff5e62);
+}
+
+h3 {
+    margin: 15px 0;
+    color: #ff7e5f;
+    position: relative;
+}
+
+.dark-mode h3 {
+    color: #ff9966;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    background: linear-gradient(to right, #ff7e5f, #feb47b); /* Orange gradient */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+    font-weight: 600;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+button::after {
+    content: "";
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(to right, rgba(255,255,255,0), rgba(255,255,255,0.3), rgba(255,255,255,0));
+    transform: rotate(30deg);
+    transition: all 0.5s ease;
+    opacity: 0;
+}
+
+button:hover::after {
+    animation: shine 1.5s ease-in-out;
+}
+
+@keyframes shine {
+    0% { transform: translateX(-100%) rotate(30deg); opacity: 0; }
+    20% { opacity: 0.7; }
+    100% { transform: translateX(100%) rotate(30deg); opacity: 0; }
+}
+
+button:hover {
+    background: linear-gradient(to right, #ff9966, #ff5e62);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+}
+
+button:disabled {
+    background: #cccccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+button:disabled::after {
+    display: none;
+}
+
+.dark-mode button {
+    background: linear-gradient(to right, #444, #666);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+.dark-mode button:hover {
+    background: linear-gradient(to right, #555, #777);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+/* Dark Mode Toggle */
+#toggleMode {
+    position: fixed; /* Fix it to the viewport */
+    top: 20px;
+    right: 40px; /* Adjust this as needed */
+    width: auto;
+    padding: 8px 12px;
+    font-size: 14px;
+    border-radius: 20px;
+    z-index: 1000; /* Ensures it stays on top */
+}
+
+#toggleMode .fas {
+    transition: transform 0.5s ease;
+}
+
+#toggleMode:hover .fas {
+    transform: rotate(360deg);
+}
+
+/* Inputs and Labels */
+label {
+    display: block;
+    margin: 15px 0 5px;
+    text-align: left;
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 12px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border 0.3s, box-shadow 0.3s;
+    background-color: #fff;
+    background-position: right 10px center;
+    background-repeat: no-repeat;
+    background-size: 20px;
+}
+
+input[type="text"] {
+    background-image: url('/api/placeholder/20/20');
+    padding-right: 35px;
+}
+
+select {
+    background-image: url('/api/placeholder/20/20');
+    padding-right: 35px;
+    appearance: none;
+}
+
+.dark-mode input[type="text"],
+.dark-mode input[type="number"],
+.dark-mode select {
+    background-color: #333;
+    color: #fff;
+    border-color: #555;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+    border-color: #ff7e5f;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 126, 95, 0.2);
+}
+
+.dark-mode input[type="text"]:focus,
+.dark-mode input[type="number"]:focus,
+.dark-mode select:focus {
+    border-color: #ff9966;
+    box-shadow: 0 0 0 3px rgba(255, 153, 102, 0.2);
+}
+
+/* Range Input Styling */
+input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 8px;
+    background: #e0e0e0;
+    outline: none;
+    border-radius: 4px;
+    margin: 15px 0;
+    background-image: linear-gradient(to right, #ff7e5f, #feb47b);
+    background-size: 50% 100%;
+    background-repeat: no-repeat;
+}
+
+.dark-mode input[type="range"] {
+    background: #444;
+    background-image: linear-gradient(to right, #ff9966, #ff5e62);
+    background-size: 50% 100%;
+    background-repeat: no-repeat;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    background: url('/api/placeholder/24/24') no-repeat center center #ff7e5f;
+    background-size: 80%;
+    cursor: pointer;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.dark-mode input[type="range"]::-webkit-slider-thumb {
+    background-color: #ff9966;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    background: url('/api/placeholder/24/24') no-repeat center center #ff7e5f;
+    background-size: 80%;
+    cursor: pointer;
+    border-radius: 50%;
+    border: none;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.dark-mode input[type="range"]::-moz-range-thumb {
+    background-color: #ff9966;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+/* Person Entries */
+#personsContainer {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    margin-top: 15px;
+    border-radius: 8px;
+    background: rgba(245, 245, 245, 0.5);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode #personsContainer {
+    background: rgba(30, 30, 30, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.user-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    position: relative;
+    border-left: 3px solid #ff7e5f;
+}
+
+.user-entry::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    background: url('/api/placeholder/30/30') no-repeat;
+    background-size: contain;
+    opacity: 0.2;
+}
+
+.user-entry:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+}
+
+.dark-mode .user-entry {
+    background: #333;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    border-left: 3px solid #ff9966;
+}
+
+.dark-mode .user-entry:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+/* Price Range */
+#priceRange {
+    width: 100%;
+    margin: 15px 0;
+}
+
+#priceValue {
+    font-weight: bold;
+    color: #ff5722;
+    font-size: 18px;
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 15px;
+    background: rgba(255, 87, 34, 0.1);
+}
+
+.dark-mode #priceValue {
+    color: #ff9966;
+    background: rgba(255, 153, 102, 0.2);
+}
+
+/* Restaurant List */
+#restaurantsList {
+    margin-top: 20px;
+    position: relative;
+}
+
+#restaurantsList::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('/api/placeholder/600/400') no-repeat center center;
+    background-size: cover;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: -1;
+    border-radius: 10px;
+}
+
+.restaurant {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 15px 0;
+    text-align: left;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border-left: 4px solid #ff7e5f;
+    position: relative;
+}
+
+.restaurant::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 40px;
+    height: 40px;
+    background: url('/api/placeholder/40/40') no-repeat;
+    background-size: contain;
+    opacity: 0.1;
+    z-index: 0;
+}
+
+.dark-mode .restaurant {
+    background: #333;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    border-left: 4px solid #ff9966;
+}
+
+.restaurant:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.dark-mode .restaurant:hover {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+}
+
+.restaurant h3 {
+    margin-top: 0;
+    font-size: 18px;
+    padding-right: 40px; /* Make room for the icon */
+}
+
+.restaurant-best-match {
+    border-left: 4px solid #4CAF50;
+    background: linear-gradient(to right, rgba(255, 126, 95, 0.1), rgba(254, 180, 123, 0.05));
+}
+
+.restaurant-best-match::after {
+    content: "Best Match";
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    background: #4CAF50;
+    color: white;
+    padding: 3px 10px;
+    font-size: 12px;
+    border-radius: 15px;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.dark-mode .restaurant-best-match {
+    border-left: 4px solid #4CAF50;
+    background: linear-gradient(to right, rgba(255, 153, 102, 0.2), rgba(255, 94, 98, 0.1));
+}
+
+.restaurant-details {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    font-size: 14px;
+}
+
+.restaurant-type {
+    background: #eee;
+    color: #333;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    position: relative;
+    padding-left: 25px;
+}
+
+.restaurant-type::before {
+    content: "";
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 12px;
+    height: 12px;
+    background: url('/api/placeholder/12/12') no-repeat;
+    background-size: contain;
+}
+
+.dark-mode .restaurant-type {
+    background: #555;
+    color: #fff;
+}
+
+.restaurant-price {
+    color: #4CAF50;
+    font-weight: bold;
+}
+
+.restaurant-distance {
+    color: #666;
+    position: relative;
+    padding-left: 20px;
+}
+
+.restaurant-distance::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    background: url('/api/placeholder/15/15') no-repeat;
+    background-size: contain;
+}
+
+.dark-mode .restaurant-distance {
+    color: #aaa;
+}
+
+.restaurant-price-exact {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+    padding-left: 22px;
+    position: relative;
+}
+
+.restaurant-price-exact::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    background: url('/api/placeholder/15/15') no-repeat;
+    background-size: contain;
+}
+
+.dark-mode .restaurant-price-exact {
+    color: #aaa;
+}
+
+/* Budget option badge */
+.budget-option {
+    display: inline-block;
+    background: #ff7e5f;
+    color: white;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    margin-left: 5px;
+    vertical-align: middle;
+}
+
+.dark-mode .budget-option {
+    background: #ff9966;
+}
+
+/* Map Container */
+#mapContainer {
+    margin-top: 30px;
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+#mapContainer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(to right, #4CAF50, #8BC34A);
+    border-radius: 10px 10px 0 0;
+}
+
+.dark-mode #mapContainer {
+    background: #333;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+#map {
+    width: 100%;
+    height: 300px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    margin-bottom: 15px;
+}
+
+.dark-mode #map {
+    box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+#getDirectionsBtn {
+    margin-top: 10px;
+    background: linear-gradient(to right, #4CAF50, #8BC34A);
+}
+
+#getDirectionsBtn:hover {
+    background: linear-gradient(to right, #43A047, #7CB342);
+}
+
+/* Loading */
+.loading {
+    font-size: 18px;
+    margin: 20px 0;
+    color: #ff5722;
+    animation: pulse 1.5s infinite alternate;
+    display: inline-block;
+    padding: 10px 20px;
+    background: rgba(255, 87, 34, 0.1);
+    border-radius: 20px;
+}
+
+@keyframes pulse {
+    from { opacity: 0.5; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1.02); }
+}
+
+.dark-mode .loading {
+    background: rgba(255, 153, 102, 0.2);
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+    
+    button {
+        font-size: 16px;
+        padding: 10px;
+    }
+    
+    h2 {
+        font-size: 22px;
+    }
+    
+    #toggleMode {
+        position: relative;
+        top: auto;
+        right: auto;
+        margin-bottom: 15px;
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #ff7e5f;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ff5e62;
+}
+
+.dark-mode ::-webkit-scrollbar-track {
+    background: #333;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+    background: #ff9966;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb:hover {
+    background: #ff7e5f;
+}
+
+/* Smooth Transitions */
+#step1, #step2, #step3, #step4, #restaurantsList, #mapContainer {
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Step indicators */
+#step1::before, #step2::before, #step3::before, #step4::before {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: -15px;
+    font-size: 12px;
+    color: #999;
+    background: rgba(255,255,255,0.8);
+    padding: 3px 10px;
+    border-radius: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.dark-mode #step1::before, 
+.dark-mode #step2::before, 
+.dark-mode #step3::before, 
+.dark-mode #step4::before {
+    color: #ccc;
+    background: rgba(30,30,30,0.8);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+}
+
+#step1::before { content: "Step 1"; }
+#step2::before { content: "Step 2"; }
+#step3::before { content: "Step 3"; }
+#step4::before { content: "Step 4"; }
+
+/* Food-themed background decorations */
+.container::after {
+    content: "";
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 60px;
+    height: 60px;
+    background: url('/api/placeholder/60/60') no-repeat;
+    background-size: contain;
+    opacity: 0.05;
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Beautiful notifications */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    color: #333;
+    padding: 15px 20px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 1000;
+    transform: translateX(120%);
+    transition: transform 0.3s ease-out;
+    max-width: 300px;
+    display: flex;
+    align-items: center;
+}
+
+.notification.active {
+    transform: translateX(0);
+}
+
+.notification::before {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+    background: url('/api/placeholder/24/24') no-repeat;
+    background-size: contain;
+}
+
+.dark-mode .notification {
+    background: #333;
+    color: #fff;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+}
+
+/* Food type icons */
+.foodType option[value="Snack"]::before {
+    content: "🍿";
+}
+
+.foodType option[value="Main Course"]::before {
+    content: "🍲";
+}
+
+.foodType option[value="Brunch"]::before {
+    content: "🥪";
+}
+
+/* Animated food icon background */
+@keyframes floatBg {
+    0% { background-position: 0 0; }
+    100% { background-position: 100px 100px; }
+}
+
+.container {
+    background-image: url('/api/placeholder/100/100');
+    background-repeat: repeat;
+    background-size: 500px;
+    background-blend-mode: overlay;
+    animation: floatBg 60s linear infinite;
+}
+
+.dark-mode .container {
+    background-blend-mode: color-burn;
+}
+
+/* Improved page transitions */
+.container > div {
+    animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Special styles for restaurant types */
+.restaurant-type:contains("cafe") {
+    background-color: #E1BEE7;
+    color: #4A148C;
+}
+
+.restaurant-type:contains("fast food") {
+    background-color: #FFCCBC;
+    color: #BF360C;
+}
+
+.restaurant-type:contains("restaurant") {
+    background-color: #C8E6C9;
+    color: #1B5E20;
+}
+
+.restaurant-type:contains("bar"), .restaurant-type:contains("pub") {
+    background-color: #BBDEFB;
+    color: #0D47A1;
+}
+
+.dark-mode .restaurant-type:contains("cafe") {
+    background-color: #4A148C;
+    color: #E1BEE7;
+}
+
+.dark-mode .restaurant-type:contains("fast food") {
+    background-color: #BF360C;
+    color: #FFCCBC;
+}
+
+.dark-mode .restaurant-type:contains("restaurant") {
+    background-color: #1B5E20;
+    color: #C8E6C9;
+}
+
+.dark-mode .restaurant-type:contains("bar"), .dark-mode .restaurant-type:contains("pub") {
+    background-color: #0D47A1;
+    color: #BBDEFB;
+}
